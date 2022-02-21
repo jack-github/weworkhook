@@ -28,7 +28,8 @@ import de.robv.android.xposed.XposedHelpers;
  * Created by gallonyin on 2018/6/13.
  */
 
-public class WeWork {
+public class
+WeWork {
     private static final String TAG = "WeWork";
 
     private ClassLoader classLoader;
@@ -387,7 +388,7 @@ public class WeWork {
                         if (gss == null) {
                             return;
                         }
-                        Log.d(TAG, "gss:"+gss.getSatellites());
+                        Log.d(TAG, "gss:bbbbbbbbb");
 
                         Class<?> clazz = GpsStatus.class;
                         Method m = null;
@@ -419,11 +420,13 @@ public class WeWork {
                         //5 satellites are fixed
                         int usedInFixMask = 0x1f;
 
-                        XposedHelpers.callMethod(gss, "setStatus", svCount, prns, snrs, elevations, azimuths, ephemerisMask, almanacMask, usedInFixMask);
+                        //setStatus(int svCount, int[] svidWithFlags, float[] cn0s, float[] elevations, float[] azimuths)
+                        XposedHelpers.callMethod(gss,"setStatus",svCount,prns,snrs,elevations,azimuths);
+                        //XposedHelpers.callMethod(gss, "setStatus", svCount, prns, snrs, elevations, azimuths, ephemerisMask, almanacMask, usedInFixMask);
                         param.args[0] = gss;
                         param.setResult(gss);
                         try {
-                            m.invoke(gss, svCount, prns, snrs, elevations, azimuths, ephemerisMask, almanacMask, usedInFixMask);
+                            m.invoke(gss, svCount, prns, snrs, elevations, azimuths);
                             param.setResult(gss);
                         } catch (Exception e) {
                             XposedBridge.log(e);
