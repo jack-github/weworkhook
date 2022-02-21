@@ -1,6 +1,7 @@
 package org.gallonyin.weworkhk;
 
 import android.app.AlarmManager;
+import android.app.LoaderManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,6 +11,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.GnssMeasurementsEvent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -57,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
         sp = getSharedPreferences("main", Context.MODE_PRIVATE);
 
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        et_la.setText(String.valueOf(sp.getFloat("la",0)));
+        et_lo.setText(String.valueOf(sp.getFloat("lo",0)));
     }
 
     private void initView() {
@@ -130,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
                 sp.edit().putString("PicPath", pic_path).apply();
             }
         });
+
+        findViewById(R.id.bt_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // LocationManager locationManager =  (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+               // locationManager.getGpsStatus()
+            }
+        });
+
 
         TextView tv_confirm = findViewById(R.id.tv_confirm);
         if (confirm()) {

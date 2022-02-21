@@ -377,13 +377,22 @@ public class WeWork {
                     protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                         if (!isOpen) return;
                         Log.d(TAG, "getGpsStatus");
-                        GpsStatus gss = (GpsStatus) param.getResult();
-                        if (gss == null)
+                        GpsStatus gss = null;
+                        try {
+                            Log.d(TAG, "getGpsStatus2222222222");
+                            gss = (GpsStatus) param.getResult();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (gss == null) {
                             return;
+                        }
+                        Log.d(TAG, "gss:"+gss.getSatellites());
 
                         Class<?> clazz = GpsStatus.class;
                         Method m = null;
                         for (Method method : clazz.getDeclaredMethods()) {
+                            Log.d(TAG, "methodName:"+method.getName());
                             if (method.getName().equals("setStatus")) {
                                 if (method.getParameterTypes().length > 1) {
                                     m = method;
@@ -391,8 +400,9 @@ public class WeWork {
                                 }
                             }
                         }
-                        if (m == null)
+                        if (m == null) {
                             return;
+                        }
 
                         //access the private setStatus function of GpsStatus
                         m.setAccessible(true);

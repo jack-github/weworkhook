@@ -76,10 +76,19 @@
         android:id="@+id/bt_save_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/et_pic_path"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="保存图片地址" />
+
+    <Button
+        android:id="@+id/bt_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_pic_path"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="测试" />
 
     <CheckBox
         android:id="@+id/cb_open"
